@@ -1,6 +1,5 @@
-ImIn = imread('Images_Training\Images_Training\im1s.jpg');
+ImIn = imread('Images_Training\Images_Training\im9s.jpg');
 Im = im2double(ImIn);
-%strout = tnm034(Im);
 tic;
-strout = test1(Im);
+strout = tnm034(Im);
 toc;

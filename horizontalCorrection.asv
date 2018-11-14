@@ -1,0 +1,18 @@
+function correctAngle = horizontalCorrection(img, it, precision, startPoint)
+    inputCopy = imrotate(img, startPoint);
+    rotim = inputCopy;
+    currRot = 0;
+    maxValue = 0; 
+    
+    for i = 1:it
+        pks = findpeaks(sum(rotim, 2));
+        if maxValue < max(pks)
+            maxValue = max(pks);
+            currRot = i-1;  % pga. indexering börjar på 1
+        end
+        inputCopy = imrotate(img, startPoint);
+        rotim = imrotate(inputCopy, -precision*i);
+    end
+    
+    correctAngleIteration = currRot;
+end

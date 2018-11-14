@@ -1,0 +1,12 @@
+function bestRotation = findRotationAngle(biIm, precision, it)
+    
+    for i = 1:it
+        pks = findpeaks(sum(rotim, 2));
+        if maxValue < max(pks)
+            maxValue = max(pks);
+            currRotSmall = i-1;  % pga. indexering börjar på 1
+        end
+        inputCopy = imrotate(biIm,10-currRot + 1);
+        rotim = imrotate(inputCopy, -0.01*i);
+    end
+end
