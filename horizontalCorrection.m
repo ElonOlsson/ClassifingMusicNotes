@@ -1,5 +1,5 @@
 function correctAngleIteration = horizontalCorrection(img, it, precision, startPoint)
-    inputCopy = imrotate(img, startPoint);
+    inputCopy = imrotate(img, startPoint, 'bicubic');
     rotationImg = inputCopy;
     currRot = 0;
     maxPeak = 0; 
@@ -10,8 +10,8 @@ function correctAngleIteration = horizontalCorrection(img, it, precision, startP
             maxPeak = max(pks);
             currRot = i-1;  % pga. indexering börjar på 1
         end
-        inputCopy = imrotate(img, startPoint);
-        rotationImg = imrotate(inputCopy, -precision*i);
+        inputCopy = imrotate(img, startPoint, 'bicubic');
+        rotationImg = imrotate(inputCopy, -precision*i, 'bicubic');
     end
     
     correctAngleIteration = currRot;

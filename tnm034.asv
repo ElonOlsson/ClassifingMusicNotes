@@ -9,9 +9,8 @@ function strout = tnm034(Im)
     end
     
     bw= 1-imbinarize(Im(:,:,1), 0.7);
-    cropHeight = tan(deg2rad(angle))*size(Im,2);
-    cropWidth = tan(deg2rad(angle))*size(Im,1);
-    rect = [cropWidth, cropHeight, size(bw,2)-2*cropWidth, size(bw,1)-2*cropHeight];
+    cropHeight = tan(degtorad(angle))*size(Im,2);
+    rect = [0, cropHeight, size(bw,2), size(bw,1)-2*cropHeight];
     bw = imcrop(bw, rect);
     
     
