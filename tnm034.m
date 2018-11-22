@@ -31,8 +31,11 @@ function strout = tnm034(Im)
     nrOfBars = size(locationMatrix, 1)
     
     subImages = imageSegmentation(bw, locationMatrix, nrOfBars);
-        
     
+    str = '';
+    for i=1:nrOfBars
+       str = str + analysOfSubImage(subImages(:,:,i))
+    end
     figure(2)
     imshow(bw)
 end
