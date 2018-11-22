@@ -3,9 +3,9 @@ function correctAngleIteration = horizontalCorrection(img, it, precision, startP
     rotationImg = inputCopy;
     currRot = 0;
     maxPeak = 0; 
-    
     for i = 1:it
         pks = findpeaks(sum(rotationImg, 2));
+ 
         if maxPeak < max(pks)
             maxPeak = max(pks);
             currRot = i-1;  % pga. indexering börjar på 1

@@ -20,17 +20,23 @@ function strout = tnm034(Im)
     figure(1)
     plot(sum(bw, 2), 1:size(bw,1));
     
-    % find maxPeak
-    [pks, locs] = findpeaks(sum(bw, 2));
+    [pks, locs] = findpeaks(sum(bw, 2)); %, 'MinPeakHeight', 700    
     maxPeak = max(pks);
-
-    % Get location of peaks
-    peakThreshold = 0.6; % getPeakThreshold(?);
-    locs = locs(pks>peakThreshold*maxPeak);
-    locationMatrix = vec2mat(locs', 5) 
-    nrOfBars = size(locationMatrix, 1)
-    
-    subImages = imageSegmentation(bw, locationMatrix, nrOfBars);
+%     tempLocs = locs;
+%     for i = 0.9:-0.1:0.1   
+%         locs = tempLocs;
+%         locs = locs(pks>i*maxPeak);
+%         if(mod(size(locs),5) == 0)
+%             maxPeak
+%             break
+%         end 
+%     end
+    locs = locs(pks>0.6*maxPeak);
+    loctionMatrix = vec2mat(locs', 5) 
+        if pks(:,1) > 600
+            locsOfPeaks(locsIterator) = locs(i);
+            locsIterator = locsIterator +1;
+        end
         
     
     figure(2)
