@@ -1,5 +1,4 @@
-function strout = tnm034(Im)
-    strout = '1';
+function str = tnm034(Im)
     binarizeThreshold = 0.8;
     bw= 1-imbinarize(Im(:,:,1), binarizeThreshold);   % 1- pga. objekt räknas som vitt på svart.
 
@@ -34,8 +33,12 @@ function strout = tnm034(Im)
     
     str = '';
     for i=1:nrOfBars
-       str = str + analysOfSubImage(subImages(:,:,i))
+       str = strcat(str, analysOfSubImage(subImages(:,:,i)));
     end
+    str = str(1:end-1); % removes last n ( from line break );
+    
     figure(2)
+    imshow(subImages(:,:,3))
+    figure(3)
     imshow(bw)
 end
