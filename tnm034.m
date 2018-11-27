@@ -16,8 +16,8 @@ function str = tnm034(Im)
     bw = imcrop(bw, rect);
     
     % Show
-    figure(1)
-    plot(sum(bw, 2), 1:size(bw,1));
+%     figure(1)
+%     plot(sum(bw, 2), 1:size(bw,1));
     
     % find maxPeak
     [pks, locs] = findpeaks(sum(bw, 2));
@@ -37,8 +37,8 @@ function str = tnm034(Im)
     end
     str = str(1:end-1); % removes last n ( from line break );
     
-    figure(2)
-    imshow(subImages(:,:,3))
-    figure(3)
-    imshow(bw)
+%     figure(2)
+%     imshow(subImages(:,:,3))
+%     figure(3)
+%     imshow(bw)
 end

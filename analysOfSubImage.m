@@ -11,5 +11,7 @@ function str = analysOfSubImage(img)
     eighthNotes = ['g1' 'a1' 'b1' 'c2' 'd2' 'e2' 'f2' 'g2' 'a2' 'b2' 'c3' 'd3' 'e3' 'f3' 'g3' 'a3' 'b3' 'c4' 'd4' 'e4'];
     noLinesImg = removeStaffLines(img);
     
+    verticalPeaks = verticalProj(noLinesImg);
+    
     str = strcat(str, 'n');
 end
