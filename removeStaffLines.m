@@ -11,5 +11,5 @@ function imgNoLines = removeStaffLines(img)
 %     pointImg = bwmorph(imgNoLines, 'shrink',  Inf);
 
     figure;
-    imshow(imgNoLines)
+    imshow(imgNoLines);
 end
