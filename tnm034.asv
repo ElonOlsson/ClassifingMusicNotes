@@ -31,11 +31,11 @@ function str = tnm034(Im)
     
     subImages = imageSegmentation(bw, locationMatrix, nrOfBars);
     
-    str = '';
+    str = "";
     for i=1:nrOfBars
        str = strcat(str, analysOfSubImage(subImages(:,:,i)))
     end
-    str = str(1:end-1); % removes last n ( from line break );
+    str = str(1:end); % removes last n ( from line break );
     
 %     figure(2)
 %     imshow(subImages(:,:,3))

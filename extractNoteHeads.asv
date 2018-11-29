@@ -1,0 +1,9 @@
+function noteHeadImg = extractNoteHeads(img)
+    
+    
+
+    imgNoLines = imdilate(imgNoLines,nhoodD);    
+
+    figure;
+    imshow(noteHeadImg);
+end
