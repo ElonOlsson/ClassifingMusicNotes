@@ -5,7 +5,7 @@ function str = tnm034(Im)
     angle = findRotationAngle(bw)
     if (angle > 0 || angle < 0)
         Im = imrotate(Im, angle, 'bicubic', 'crop');
-        disp("rotated by angle: " + angle)
+        disp("rotated by angle: " + angle);
     end
     
     bw= 1-imbinarize(Im(:,:,1), binarizeThreshold);
@@ -33,10 +33,12 @@ function str = tnm034(Im)
     
     str = '';
     for i=1:nrOfBars
-       str = strcat(str, analysOfSubImage(subImages(:,:,i)))
+%        str = [str, analysOfSubImage(subImages(:,:,i))];
+       str = strcat(str, analysOfSubImage(subImages(:,:,i)));
     end
+    str = char(str);
     str = str(1:end-1); % removes last n ( from line break );
-    
+
 %     figure(2)
 %     imshow(subImages(:,:,3))
 %     figure(3)

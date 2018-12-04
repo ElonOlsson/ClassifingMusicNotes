@@ -14,7 +14,7 @@ function str = analysOfSubImage(img)
     end
 
     % size is 20
-    quarterNotes = ['E4', 'D4', 'C4', 'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3', 'B2', 'A2', 'G2', 'F2', 'E2', 'D2', 'C2', 'B1', 'A1', 'G1'];
+    quarterNotes = ["E4", "D4", "C4", "B3", "A3", "G3", "F3", "E3", "D3", "C3", "B2", "A2", "G2", "F2", "E2", "D2", "C2", "B1", "A1", "G1"];
     eightNotes = ['e4', 'd4', 'c4', 'b3', 'a3', 'g3', 'f3', 'e3', 'd3', 'c3', 'b2', 'a2', 'g2', 'f2', 'e2', 'd2', 'c2', 'b1', 'a1', 'g1'];
     
     noLinesImg = removeStaffLines(img);
@@ -27,8 +27,11 @@ function str = analysOfSubImage(img)
     
     for i=1:size(centroids(:,2))
         [m,index] = min(abs(noteLocations-centroids(i, 2)));
-        quar
-%         str = strcat(str, quarterNotes(index));
+%       str = strcat(str, quarterNotes(index));
+        str=[str,eightNotes(2*index)];
+        
+        
+
     end
 %     find closesed centroid(i) in noteLocation, return index
 %     concat quarter/eight data at index.
@@ -41,6 +44,6 @@ function str = analysOfSubImage(img)
 %         end
 %     end
 
-
-    str = strcat(str, 'n');
+    str = [str,'n'];
+%     str = strcat(str, "n");
 end
