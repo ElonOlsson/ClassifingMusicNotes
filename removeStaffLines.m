@@ -1,6 +1,6 @@
 function imgNoLines = removeStaffLines(img)
 
-    nhood = [0 1 0; 0 1 0; 0 1 0];
+    nhood = [0 1 1 0; 0 1 1 0; 0 1 1 0; 0 1 1 0];
     imgNoLines = imerode(img, nhood);
     
 %   dilation

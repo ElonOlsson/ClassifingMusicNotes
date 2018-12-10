@@ -2,6 +2,9 @@
 function str = analysOfSubImage(img)
     str = '';
     imgHeight = size(img, 1);
+%     imgScaleFactor = 1+(1-(imgHeight/110));
+%     img = imresize(img, [size(img,1)*imgScaleFactor size(img,2)]);
+%     imgScaledHeight = size(img, 1)
     dPLUSn = imgHeight/11;
     marginTop = 4*dPLUSn;
     marginBot = 3*dPLUSn;
@@ -19,17 +22,32 @@ function str = analysOfSubImage(img)
     
     noLinesImg = removeStaffLines(img);
     onlyHeadsImg = extractNoteHeads(img);
-    
-    L = bwlabel(onlyHeadsImg);
-    s = regionprops(L, 'Centroid');
-    centroids = cat(1, s.Centroid);
+    onlyShaftsImg = extractShafts(img);
+    onlyBeamsImg = extractBeams(noLinesImg);
 
+    headsAndShafts = onlyShaftsImg + onlyHeadsImg;
+    headsAndBeams = onlyHeadsImg + onlyBeamsImg;
+   
+    labelHeads = bwlabel(onlyHeadsImg);
+    regionHeads = regionprops(labelHeads, 'Centroid');
+    centroids = cat(1, regionHeads.Centroid);
+    
+ 
+    for i=1:size(centroids(:,2)) 
+        rect = [ centroids(i,1)-dPLUSn, centroids(i,2)-3.5*dPLUSn, 2*dPLUSn, 7*dPLUSn];
+        noteImg = imcrop(headsAndBeams, rect);
+%         figure;
+%         imshow(noteImg)
+    end
+    
+    
+    figure;
+    imshow(headsAndBeams);
+    
     
     for i=1:size(centroids(:,2))
         [m,index] = min(abs(noteLocations-centroids(i, 2)));
-     	str = strcat(str, quarterNotes(index));
-%         str=[str,quarterNotes(index)];   
-        
+     	str = strcat(str, quarterNotes(index));        
     end
 %     find closesed centroid(i) in noteLocation, return index
 %     concat quarter/eight data at index.
@@ -42,6 +60,8 @@ function str = analysOfSubImage(img)
 %         end
 %     end
 
-%     str = [str,'n'];
+    if(extractBefore(str,3) == "C2")    % C2 for g-klav 
+            str = extractAfter(str,2);
+    end
     str = strcat(str, "n");
 end
