@@ -1,8 +1,8 @@
 function str = tnm034(Im)
     binarizeThreshold = 0.8;
     bw= 1-imbinarize(Im(:,:,1), binarizeThreshold);   % 1- pga. objekt räknas som vitt på svart.
-    imshow(bw);
-    angle = findRotationAngle(bw)
+%     imshow(bw);
+    angle = findRotationAngle(bw);
     if (angle > 0 || angle < 0)
         Im = imrotate(Im, angle, 'bicubic', 'crop');
         disp("rotated by angle: " + angle);

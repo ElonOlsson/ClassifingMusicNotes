@@ -13,8 +13,6 @@ function str = analysOfSubImage(img)
 
     binarizeThreshold = 0.8;
     bw = 1-imbinarize(img(:,:,1), binarizeThreshold);
-    
-    
 
     noteLocations = zeros(1, 20);
     it=1;
@@ -35,33 +33,52 @@ function str = analysOfSubImage(img)
 
 %     headsAndShafts = onlyShaftsImg + onlyHeadsImg;
     headsAndBeams = onlyHeadsImg + onlyBeamsImg;
-    
-    figure;
-    imshow(headsAndBeams);
- 
+   
     labelHeads = bwlabel(onlyHeadsImg);
     regionHeads = regionprops(labelHeads, 'Centroid');
     centroids = cat(1, regionHeads.Centroid);
-  
+    
+ 
     for i=1:size(centroids(:,2)) 
-        rect = [ centroids(i,1)-dPLUSn, centroids(i,2)-4*dPLUSn, 2*dPLUSn, 8*dPLUSn];
+        rect = [ centroids(i,1)-dPLUSn, centroids(i,2)-3.5*dPLUSn, 2*dPLUSn, 7*dPLUSn];
         noteImg = imcrop(headsAndBeams, rect);  % size of noteImg differ if croped at edges of img.
         
-%         figure;
-%         imshow(noteImg);
         
         pks = findpeaks(sum(noteImg, 2));
         
         [m,index] = min(abs(noteLocations-centroids(i, 2)));
 
-        if (length(pks) == 1)
+        if length(pks) == 1
             str = strcat(str, quarterNotes(index));        
-        elseif (length(pks) == 2)
-            str = strcat(str, eightNotes(index));
+        else if length(pks) ==2
+            str = trca
         end        
-    end
 
-    if(extractBefore(str,3) == "C2" || extractBefore(str,3) == "c2")    % C2 for g-klav 
+        
+        
+    end
+    
+    
+%     figure;
+%     imshow(headsAndBeams);
+    
+    
+    for i=1:size(centroids(:,2))
+        [m,index] = min(abs(noteLocations-centroids(i, 2)));
+     	str = strcat(str, quarterNotes(index));        
+    end
+%     find closesed centroid(i) in noteLocation, return index
+%     concat quarter/eight data at index.
+%         
+%     if ( (2) == noteLocation[i] )
+%         if(quarter)
+%         str = quarterNotes[i]
+%         else
+%         str = eightNotes[i]
+%         end
+%     end
+
+    if(extractBefore(str,3) == "C2")    % C2 for g-klav 
             str = extractAfter(str,2);
     end
     str = strcat(str, "n");
