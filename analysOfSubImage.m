@@ -13,8 +13,7 @@ function str = analysOfSubImage(img)
 
     binarizeThreshold = 0.8;
     bw = 1-imbinarize(img(:,:,1), binarizeThreshold);
-    
-    
+        
 
     noteLocations = zeros(1, 20);
     it=1;
@@ -30,28 +29,31 @@ function str = analysOfSubImage(img)
 
     noLinesImg = removeStaffLines(bw);
     onlyHeadsImg = extractNoteHeads(bw);
-%     onlyShaftsImg = extractShafts(bw);
+    onlyShaftsImg = extractShafts(bw);
     onlyBeamsImg = extractBeams(noLinesImg);
+    onlyFlagsImg = extractFlags(noLinesImg);
 
 %     headsAndShafts = onlyShaftsImg + onlyHeadsImg;
     headsAndBeams = onlyHeadsImg + onlyBeamsImg;
+    headsBeamsAndFlags = headsAndBeams + onlyFlagsImg;
     
     figure;
-    imshow(headsAndBeams);
+    imshow(headsBeamsAndFlags);
  
     labelHeads = bwlabel(onlyHeadsImg);
     regionHeads = regionprops(labelHeads, 'Centroid');
     centroids = cat(1, regionHeads.Centroid);
   
     for i=1:size(centroids(:,2)) 
-        rect = [ centroids(i,1)-dPLUSn, centroids(i,2)-4*dPLUSn, 2*dPLUSn, 8*dPLUSn];
-        noteImg = imcrop(headsAndBeams, rect);  % size of noteImg differ if croped at edges of img.
-        
-%         figure;
-%         imshow(noteImg);
+        rect = [ centroids(i,1)-dPLUSn, 0, 2*dPLUSn, 11*dPLUSn];
+        noteImg = imcrop(headsBeamsAndFlags, rect);  % size of noteImg differ if croped at edges of img.    %beams, heads and flags only        
         
         pks = findpeaks(sum(noteImg, 2));
         
+        figure;
+        plot(sum(noteImg, 2));
+%         imshow(noteImg);
+
         [m,index] = min(abs(noteLocations-centroids(i, 2)));
 
         if (length(pks) == 1)
