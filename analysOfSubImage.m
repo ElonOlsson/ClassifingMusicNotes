@@ -13,8 +13,7 @@ function str = analysOfSubImage(img)
 
     binarizeThreshold = 0.8;
     bw = 1-imbinarize(img(:,:,1), binarizeThreshold);
-        
-
+    
     noteLocations = zeros(1, 20);
     it=1;
     for i=dPLUSn : dPLUSn/2 : imgScaledHeight-dPLUSn/2
@@ -25,8 +24,9 @@ function str = analysOfSubImage(img)
     % size is 20
     quarterNotes = ["E4", "D4", "C4", "B3", "A3", "G3", "F3", "E3", "D3", "C3", "B2", "A2", "G2", "F2", "E2", "D2", "C2", "B1", "A1", "G1"];
     eightNotes = ["e4", "d4", "c4", "b3", "a3", "g3", "f3", "e3", "d3", "c3", "b2", "a2", "g2", "f2", "e2", "d2", "c2", "b1", "a1", "g1"];
-    
 
+    
+    bw = extractGclef(bw);
     noLinesImg = removeStaffLines(bw);
     onlyHeadsImg = extractNoteHeads(bw);
     onlyShaftsImg = extractShafts(bw);
@@ -37,13 +37,16 @@ function str = analysOfSubImage(img)
     headsAndBeams = onlyHeadsImg + onlyBeamsImg;
     headsBeamsAndFlags = headsAndBeams + onlyFlagsImg;
     
-    figure;
-    imshow(headsBeamsAndFlags);
+
+    %figure;
+    %imshow(headsAndBeams);
  
     labelHeads = bwlabel(onlyHeadsImg);
     regionHeads = regionprops(labelHeads, 'Centroid');
     centroids = cat(1, regionHeads.Centroid);
-  
+    
+    
+    
     for i=1:size(centroids(:,2)) 
         rect = [ centroids(i,1)-dPLUSn, 0, 2*dPLUSn, 11*dPLUSn];
         noteImg = imcrop(headsBeamsAndFlags, rect);  % size of noteImg differ if croped at edges of img.    %beams, heads and flags only        
@@ -62,9 +65,6 @@ function str = analysOfSubImage(img)
             str = strcat(str, eightNotes(index));
         end        
     end
-
-    if(extractBefore(str,3) == "C2" || extractBefore(str,3) == "c2")    % C2 for g-klav 
-            str = extractAfter(str,2);
-    end
+    
     str = strcat(str, "n");
 end
