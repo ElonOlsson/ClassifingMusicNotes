@@ -53,8 +53,8 @@ function str = analysOfSubImage(img)
         
         pks = findpeaks(sum(noteImg, 2));
         
-        figure;
-        plot(sum(noteImg, 2));
+%         figure;
+%         plot(sum(noteImg, 2));
 %         imshow(noteImg);
 
         [m,index] = min(abs(noteLocations-centroids(i, 2)));
