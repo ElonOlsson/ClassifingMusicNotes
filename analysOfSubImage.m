@@ -8,8 +8,6 @@ function str = analysOfSubImage(img)
     img = imresize(img, imgScaleFactor, 'bicubic');
     imgScaledHeight = size(img, 1);
     dPLUSn = imgScaledHeight/11;
-    %marginTop = 4*dPLUSn;
-    %marginBot = 3*dPLUSn;
 
     binarizeThreshold = 0.8;
     bw = 1-imbinarize(img(:,:,1), binarizeThreshold);
@@ -51,19 +49,18 @@ function str = analysOfSubImage(img)
         rect = [ centroids(i,1)-dPLUSn, 0, 2*dPLUSn, 11*dPLUSn];
         noteImg = imcrop(headsBeamsAndFlags, rect);  % size of noteImg differ if croped at edges of img.    %beams, heads and flags only        
         
-        pks = findpeaks(sum(noteImg, 2));
-        
-%         figure;
-%         plot(sum(noteImg, 2));
-        
-        
-%         imshow(noteImg);
+        % Conv to smooth some of the curves
+        kernel = (1/9)*ones(3);
+        convPeaks = conv2(noteImg, kernel, 'same');
+        pks = findpeaks(sum(convPeaks, 2));
 
         [m,index] = min(abs(noteLocations-centroids(i, 2)));
 
         if (length(pks) == 1)
             str = strcat(str, quarterNotes(index));        
         elseif (length(pks) == 2)
+            figure;
+            plot(sum(convPeaks, 2));
             str = strcat(str, eightNotes(index));
         end        
     end
