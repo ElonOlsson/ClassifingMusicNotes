@@ -14,8 +14,11 @@ function str = tnm034(Im)
     bw = imcrop(bw, rect);
     Im = imcrop(Im, rect);
     
+    rect = [0, 0, size(bw, 2)/4, size(bw, 1)];
+    quarterBw = imcrop(bw, rect);
+    
     % find maxPeak
-    [pks, locs] = findpeaks(sum(bw, 2));
+    [pks, locs] = findpeaks(sum(quarterBw, 2));
     maxPeak = max(pks);
 
     % Get location of peaks
