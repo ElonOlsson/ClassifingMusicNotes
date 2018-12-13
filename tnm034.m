@@ -9,14 +9,19 @@ function str = tnm034(Im)
         Im = imrotate(Im, angle, 'bicubic', 'crop');
     end
     
-    % Convert it to binary image 
-    bw= 1-imbinarize(Im(:,:,1), binarizeThreshold);
+
     % Crop rotation corner articacts post image rotation
     cropHeight = tan(deg2rad(abs(angle)))*size(Im,2);
     cropWidth = tan(deg2rad(abs(angle)))*size(Im,1);
     rect = [cropWidth, cropHeight, size(Im,2)-2*cropWidth, size(Im,1)-2*cropHeight];
-    bw = imcrop(bw, rect);
+
     Im = imcrop(Im, rect);
+    %%%%% DO THIS WITH NON BINARY IMAGE???? %%%%%%
+    Im = extractGclef(Im);
+    % Convert it to binary image 
+    bw= 1-imbinarize(Im(:,:,1), binarizeThreshold);
+    figure;
+    imshow(Im);
     
     % Analyze staff lines of smaller part of image
     rect = [0, 0, size(bw, 2)/4, size(bw, 1)];
@@ -39,7 +44,7 @@ function str = tnm034(Im)
     str = '';
     % Get the note string for each bar
     for i=1:nrOfBars
-        str = strcat(str, analysOfSubImage(subImages(:,:,i)));
+        str = strcat(str, analysisOfSubImage(subImages(:,:,i)));
     end
     str = char(str);
     str = str(1:end-1); % removes last n ( from line break );
