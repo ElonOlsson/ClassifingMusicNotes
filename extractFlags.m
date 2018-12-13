@@ -1,6 +1,8 @@
+% Extract the note flags through morphogical image operations such as
+% dilation and erosin. (Matlab imopen)
 function flagImg = extractFlags(img)
-%     line = strel('line', 12, -45);
-    
+    % Boolean values instead of numerical as an result
+    % of copying the beam matrix
     flag = [true,false,false,false,false,false;
         true,true,false,false,false,false;
         true,true,false,false,false,false;

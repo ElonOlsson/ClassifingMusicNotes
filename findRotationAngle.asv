@@ -10,6 +10,8 @@ function rotationAngle = findRotationAngle(biIm)
     horizontalAngleLowPrec = horizontalCorrection(biIm, it, lowPrec, 10);
     % Then rotate it 2 degrees to check the angle with high precision
     horizontalAngleHighPrec = horizontalCorrection(biIm, it*10, highPrec, 10-horizontalAngleLowPrec + 1);
+    
+   
    
     rotationAngle = ((10-horizontalAngleLowPrec) + ((100-horizontalAngleHighPrec)/100));
 end
