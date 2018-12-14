@@ -16,12 +16,11 @@ function str = tnm034(Im)
     rect = [cropWidth, cropHeight, size(Im,2)-2*cropWidth, size(Im,1)-2*cropHeight];
 
     Im = imcrop(Im, rect);
-    %%%%% DO THIS WITH NON BINARY IMAGE???? %%%%%%
+    % Extracting the position of the G-clef and cropping the note sheet to
+    % erase it
     Im = extractGclef(Im);
     % Convert it to binary image 
     bw= 1-imbinarize(Im(:,:,1), binarizeThreshold);
-    figure;
-    imshow(Im);
     
     % Analyze staff lines of smaller part of image
     rect = [0, 0, size(bw, 2)/4, size(bw, 1)];

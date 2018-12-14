@@ -28,7 +28,6 @@ function str = analysisOfSubImage(img)
     quarterNotes = ["E4", "D4", "C4", "B3", "A3", "G3", "F3", "E3", "D3", "C3", "B2", "A2", "G2", "F2", "E2", "D2", "C2", "B1", "A1", "G1"];
     eightNotes = ["e4", "d4", "c4", "b3", "a3", "g3", "f3", "e3", "d3", "c3", "b2", "a2", "g2", "f2", "e2", "d2", "c2", "b1", "a1", "g1"];
 
-    %bw = extractGclef(bw);
     noLinesImg = removeStaffLines(bw);
     onlyNoteHeadsImg = extractNoteHeads(bw);
     onlyShaftsImg = extractShafts(bw);

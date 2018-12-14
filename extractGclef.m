@@ -1,6 +1,6 @@
 % Template matching and removal of G-clef
 function Gclef = extractGclef(img)  
-    template = imread('gclef.png');
+    template = imread('gclef-original.jpg');
     c = normxcorr2(template(:,:,1), img(:,:,1));
     [ypeak, xpeak] = find(c==max(c(:)));
     
