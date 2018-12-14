@@ -27,22 +27,36 @@ function str = tnm034(Im)
     quarterBw = imcrop(bw, rect);
     
     % find maxPeak
-    [pks, locs] = findpeaks(sum(bw, 2));
-    maxPeak = max(pks);
+    [pks, locs] = findpeaks(sum(quarterBw, 2));
     figure;
-    plot(sum(bw, 2));
-    peakThreshold = 0.5;
+    plot(sum(quarterBw,2));
+    maxPeak = max(pks);
+    peakThreshold = 0.8;
 
     % Get location of peaks
     locs = locs(pks>peakThreshold*maxPeak);
+    distanceArray = zeros(size(locs));
+    for i = 1:length(locs)-1
+        distanceArray(i) = abs(locs(i)-locs(i+1));
+    end
+    distanceBetweenBars = ceil(median(distanceArray)) + 2;
     
     % Erase the location of a peak if the distance to the peak above and
     % under is more than 10. (To make sure that only the position of staff
     % lines is used for the image segmentation).
+    %filteredLocs;
+    it = 1;
     for i = 2:length(locs)-1
-        if(abs(locs(i)-locs(i-1)) > 10 && abs(locs(i)-locs(i+1)) > 10)
-            locs(i) = [];
+        if(abs(locs(i)-locs(i-1)) > distanceBetweenBars && abs(locs(i)-locs(i+1)) > distanceBetweenBars)
+            % Do nothing
+        else
+            filteredLocs(it) = locs(i);
+            it = it+1;
         end
+    end
+    
+    if(abs(locs(end)-locs(end-1)) <= distanceBetweenBars)
+       filteredLocs = [filteredLocs, locs(end)];
     end
     
     locationMatrix = vec2mat(locs', 5); 
@@ -56,8 +70,6 @@ function str = tnm034(Im)
     str = '';
     % Get the note string for each bar
     for i=1:nrOfBars
-        figure; 
-        imshow(subImages(:,:,i));
         str = strcat(str, analysisOfSubImage(subImages(:,:,i)));
     end
     str = char(str);
