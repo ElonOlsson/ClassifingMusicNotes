@@ -43,6 +43,8 @@ function str = analysisOfSubImage(img)
     regionHeads = regionprops(labelHeads, 'Centroid');
     centroids = cat(1, regionHeads.Centroid);
     
+    figure;
+    imshow(headsBeamsAndFlags);
     
     % 
     for i=1:size(centroids(:,2)) 

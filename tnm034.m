@@ -41,7 +41,7 @@ function str = tnm034(Im)
     
     % Divide the original image dependent on the number of bars
     subImages = imageSegmentation(Im, locationMatrix, nrOfBars);
-    
+        
     str = '';
     % Get the note string for each bar
     for i=1:nrOfBars

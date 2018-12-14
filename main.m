@@ -1,4 +1,4 @@
-ImIn = imread('Images_Training\Images_Training\im10s.jpg');
+ImIn = imread('Images_Training\Images_Training\im9s.jpg');
 
 Im = im2double(ImIn);
 tic;
