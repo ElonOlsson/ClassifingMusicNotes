@@ -23,17 +23,18 @@ function str = tnm034(Im)
     bw= 1-imbinarize(Im(:,:,1), binarizeThreshold);
     
     % Analyze staff lines of smaller part of image
-    rect = [0, 0, size(bw, 2)/4, size(bw, 1)];
+    rect = [0, 0, size(bw, 2), size(bw, 1)];
     quarterBw = imcrop(bw, rect);
     
-    % find maxPeak
-    [pks, locs] = findpeaks(sum(quarterBw, 2));
+    % find maxPeak    
+    kernel = (1/9)*ones(3);
+    [pks, locs] = findpeaks(sum(conv2(quarterBw, kernel, 'same'), 2));
+    
+    figure;
+    plot(sum(conv2(quarterBw, kernel, 'same'), 2));
 
-%     figure;
-%     plot(sum(quarterBw,2));
-
-    maxPeak = max(pks);
-    peakThreshold = 0.8;
+    maxPeak = mean(maxk(pks, 10));
+    peakThreshold = 0.65;
 
     % Get location of peaks
     locs = locs(pks>peakThreshold*maxPeak);
@@ -51,11 +52,13 @@ function str = tnm034(Im)
     %filteredLocs;
     it = 1;
     for i = 2:length(locs)-1
-        if(abs(locs(i)-locs(i-1)) > distanceBetweenBars && abs(locs(i)-locs(i+1)) > distanceBetweenBars)
-            % Do nothing
-        else
+        if(abs(locs(i)-locs(i-1)) <= distanceBetweenBars || abs(locs(i)-locs(i+1)) <= distanceBetweenBars)
+            if(i==2)
+                filteredLocs(it) = locs(i-1);
+                it = it+1;
+            end
             filteredLocs(it) = locs(i);
-            it = it+1;
+            it = it+1;         
         end
     end
     
@@ -63,7 +66,7 @@ function str = tnm034(Im)
        filteredLocs = [filteredLocs, locs(end)];
     end
     
-    locationMatrix = vec2mat(locs', 5); 
+    locationMatrix = vec2mat(locs', 5)
 
     % Get the number of bars
     nrOfBars = size(locationMatrix, 1);

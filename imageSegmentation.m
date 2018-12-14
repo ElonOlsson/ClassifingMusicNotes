@@ -7,10 +7,9 @@ function subIm = imageSegmentation(img, locMat, nrOfBars)
     marginTop = 4*dPLUSnMean;
     subImgHeight = floor(11*dPLUSnMean);
     
-    subIm = zeros(subImgHeight, size(img, 2), nrOfBars);
+    %subIm = zeros(subImgHeight, size(img, 2), nrOfBars);
     
     for i = 1:nrOfBars
-        locMat(i,:)
         rect = [0, locMat(i,1)-marginTop, size(img, 2), subImgHeight];
         subIm(:,:,i) = imcrop(img(:,:,1), rect);
     end

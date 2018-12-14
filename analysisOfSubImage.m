@@ -42,13 +42,13 @@ function str = analysisOfSubImage(img)
     labelHeads = bwlabel(onlyNoteHeadsImg);
     regionHeads = regionprops(labelHeads, 'Centroid');
     centroids = cat(1, regionHeads.Centroid);
-%     
+     
 %     figure;
 %     imshow(headsBeamsAndFlags);
-    
+     
     % 
     for i=1:size(centroids(:,2)) 
-        rect = [ centroids(i,1)-dPLUSn+2, 0, 2*dPLUSn-4, 11*dPLUSn];
+        rect = [centroids(i,1)-dPLUSn+2, 0, 2*dPLUSn-4, 11*dPLUSn];
         
         % Size of noteImg differ if croped at edges of img.    
         noteImg = imcrop(headsBeamsAndFlags, rect);  
