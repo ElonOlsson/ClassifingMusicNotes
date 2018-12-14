@@ -7,7 +7,6 @@ function subIm = imageSegmentation(img, locMat, nrOfBars)
     marginTop = 4*dPLUSnMean;
     subImgHeight = 11*dPLUSnMean;
     
-    
     for i = 1:nrOfBars
         
         rect = [0, locMat(i,1)-marginTop, size(img, 2), subImgHeight];

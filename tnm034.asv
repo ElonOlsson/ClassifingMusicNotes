@@ -38,7 +38,7 @@ function str = tnm034(Im)
     
     % Erase the location of a peak if the distance to the peak above and
     % under is more than 10. (To make sure that only the position of staff
-    % lines is used for the image segmentation).
+    % lines is used for the image segmentation)
     for i = 2:length(locs)-1
         if(abs(locs(i)-locs(i-1)) > 10 && abs(locs(i)-locs(i+1)) > 10)
             locs(i) = [];
