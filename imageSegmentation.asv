@@ -5,9 +5,9 @@ function subIm = imageSegmentation(img, locMat, nrOfBars)
     barHeight = locMat(1,5) - locMat(1,1);
     dPLUSnMean = barHeight / 4; % 4 instead of 5 because its 4 intervals between the 5 values.
     marginTop = 4*dPLUSnMean;
-    subImgHeight = floor(11*dPLUSnMean);
+    subImgHeight = 11*dPLUSnMean;
     
-    subIm = zeros(subImgHeight, size(img, 2), nrOfBars);
+    subIm = zeros(:
     
     for i = 1:nrOfBars
         

@@ -42,13 +42,13 @@ function str = analysisOfSubImage(img)
     labelHeads = bwlabel(onlyNoteHeadsImg);
     regionHeads = regionprops(labelHeads, 'Centroid');
     centroids = cat(1, regionHeads.Centroid);
-    
-    figure;
-    imshow(headsBeamsAndFlags);
+%     
+%     figure;
+%     imshow(headsBeamsAndFlags);
     
     % 
     for i=1:size(centroids(:,2)) 
-        rect = [ centroids(i,1)-dPLUSn, 0, 2*dPLUSn, 11*dPLUSn];
+        rect = [ centroids(i,1)-dPLUSn+2, 0, 2*dPLUSn-4, 11*dPLUSn];
         
         % Size of noteImg differ if croped at edges of img.    
         noteImg = imcrop(headsBeamsAndFlags, rect);  
@@ -61,6 +61,9 @@ function str = analysisOfSubImage(img)
         % Using the position of the note to find the equivalent string
         % for the note
         [m,index] = min(abs(noteLocations-centroids(i, 2)));
+%         
+%         figure;
+%         imshow(noteImg);
         
         % Checking if quarter or eight notes by checking number of peaks in
         % the horizontal projection of each note

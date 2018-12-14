@@ -1,11 +1,11 @@
 % Extract the note flags through morphogical image operations such as
 % dilation and erosin. (Matlab imopen)
 function flagImg = extractFlags(img)
-    img = imdilate(img, [1 1; 1 1; 1 1]);
+%     img = imdilate(img, [1 1; 1 1; 1 1]);
     
     % Boolean values instead of numerical as an result
     % of copying the beam matrix
-    flag1 = [false,false,false,false,false,false,false,false,false,false;true,false,false,false,false,false,false,false,false,false;true,false,false,false,false,false,false,false,false,false;true,true,false,false,false,false,false,false,false,false;true,true,false,false,false,false,false,false,false,false;true,true,true,false,false,false,false,false,false,false;true,true,true,true,false,false,false,false,false,false;true,true,true,true,false,false,false,false,false,false;false,true,true,true,true,false,false,false,false,false;false,false,true,true,true,true,false,false,false,false;false,false,false,false,true,true,false,false,false,false;false,false,false,false,false,true,true,false,false,false;false,false,false,false,false,false,true,false,false,false;false,false,false,false,false,false,false,true,false,false;false,false,false,false,false,false,false,true,true,false;false,false,false,false,false,false,false,false,true,false;false,false,false,false,false,false,false,false,true,false;false,false,false,false,false,false,false,false,false,true;false,false,false,false,false,false,false,false,false,true];
+    flag1 = [false,false,false,false,false,false;true,false,false,false,false,false;true,false,false,false,false,false;true,true,false,false,false,false;true,true,true,false,false,false;false,true,true,false,false,false;false,false,false,true,false,false;false,false,false,false,true,false;false,false,false,false,true,false;false,false,false,false,false,true;false,false,false,false,false,false];
     
     flag2 = flipud(flag1);
     

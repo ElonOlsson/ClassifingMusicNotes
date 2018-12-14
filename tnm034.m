@@ -27,20 +27,25 @@ function str = tnm034(Im)
     quarterBw = imcrop(bw, rect);
     
     % find maxPeak
-    [pks, locs] = findpeaks(sum(bw, 2));
+    [pks, locs] = findpeaks(sum(quarterBw, 2));
     maxPeak = max(pks);
+%     
     figure;
-    plot(sum(bw, 2));
+    imshow(bw);
+    
     peakThreshold = 0.5;
 
     % Get location of peaks
-    locs = locs(pks>peakThreshold*maxPeak);
+    locs = locs(pks>peakThreshold*maxPeak)
     
+
     % Erase the location of a peak if the distance to the peak above and
     % under is more than 10. (To make sure that only the position of staff
     % lines is used for the image segmentation).
-    for i = 2:length(locs)-1
-        if(abs(locs(i)-locs(i-1)) > 10 && abs(locs(i)-locs(i+1)) > 10)
+    itr = length(locs)-1;
+    for i = 2:itr
+%         length(locs)
+        if((abs(locs(i)-locs(i-1)) > 10) && (abs(locs(i)-locs(i+1)) > 10))
             locs(i) = [];
         end
     end
@@ -56,8 +61,8 @@ function str = tnm034(Im)
     str = '';
     % Get the note string for each bar
     for i=1:nrOfBars
-        figure; 
-        imshow(subImages(:,:,i));
+%         figure; 
+%         imshow(subImages(:,:,i));
         str = strcat(str, analysisOfSubImage(subImages(:,:,i)));
     end
     str = char(str);
