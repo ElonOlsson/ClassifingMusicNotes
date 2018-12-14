@@ -1,7 +1,8 @@
 function str = tnm034(Im)
     binarizeThreshold = 0.8;
     bw= 1-imbinarize(Im(:,:,1), binarizeThreshold);   % 1- pga. objekt räknas som vitt på svart.
-    angle = findRotationAngle(bw);
+    
+    angle = findRotationAngle(bw)
     if (angle > 0 || angle < 0)
         Im = imrotate(Im, angle, 'bicubic', 'crop');
     end
@@ -14,7 +15,11 @@ function str = tnm034(Im)
     bw = imcrop(bw, rect);
     Im = imcrop(Im, rect);
     
-    rect = [0, 0, size(bw, 2)/4, size(bw, 1)];
+    
+    figure;
+    plot(sum(bw,2));
+    
+    rect = [0, 0, 0.33*size(bw, 2), size(bw, 1)];
     quarterBw = imcrop(bw, rect);
     
     % find maxPeak
@@ -22,10 +27,10 @@ function str = tnm034(Im)
     maxPeak = max(pks);
 
     % Get location of peaks
-    peakThreshold = 0.6; % getPeakThreshold(?);
+    peakThreshold = 0.5; % getPeakThreshold(?);
     locs = locs(pks>peakThreshold*maxPeak);
     locationMatrix = vec2mat(locs', 5); 
-    nrOfBars = size(locationMatrix, 1);
+    nrOfBars = size(locationMatrix, 1)
     
     subImages = imageSegmentation(Im, locationMatrix, nrOfBars);
     

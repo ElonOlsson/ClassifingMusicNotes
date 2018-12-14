@@ -1,14 +1,14 @@
-ImIn = imread('Images_Training\Images_Training\im1s.jpg');
+ImIn = imread('Images_Training\Images_Training\im10s.jpg');
 
 Im = im2double(ImIn);
 tic;
-
+% 
 % flag = imread('flagNote.jpg');
 % binarizeThreshold = 0.8;
 % flag = 1-imbinarize(flag(:,:,1), binarizeThreshold);   % 1- pga. objekt räknas som vitt på svart.
 % flag = imcrop(flag, [62 ,0, 50, 160]);
 % 
-% subImgSize = 32;
+% subImgSize = 45;
 % imgHeight = size(flag, 1);
 % 
 % imgScaleFactor = subImgSize / imgHeight;
@@ -16,7 +16,7 @@ tic;
 % 
 % binarizeThreshold = 0.9;
 % flag = imbinarize(flag(:,:,1), binarizeThreshold);
-
+% 
 % figure;
 % imshow(flag);
 

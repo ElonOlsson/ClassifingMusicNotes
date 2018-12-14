@@ -36,8 +36,8 @@ function str = analysOfSubImage(img)
     headsBeamsAndFlags = headsAndBeams + onlyFlagsImg;
     
 
-    %figure;
-    %imshow(headsAndBeams);
+    figure;
+    imshow(bw);
  
     labelHeads = bwlabel(onlyHeadsImg);
     regionHeads = regionprops(labelHeads, 'Centroid');
@@ -50,17 +50,21 @@ function str = analysOfSubImage(img)
         noteImg = imcrop(headsBeamsAndFlags, rect);  % size of noteImg differ if croped at edges of img.    %beams, heads and flags only        
         
         % Conv to smooth some of the curves
-        kernel = (1/9)*ones(3);
+        kernel = (1/16)*ones(4);
         convPeaks = conv2(noteImg, kernel, 'same');
         pks = findpeaks(sum(convPeaks, 2));
 
         [m,index] = min(abs(noteLocations-centroids(i, 2)));
-
+        
+%         figure;
+%         plot(sum(convPeaks, 2));
+%         figure;
+%         imshow(convPeaks);
+        
         if (length(pks) == 1)
             str = strcat(str, quarterNotes(index));        
         elseif (length(pks) == 2)
-            figure;
-            plot(sum(convPeaks, 2));
+           
             str = strcat(str, eightNotes(index));
         end        
     end
